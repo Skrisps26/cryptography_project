@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import { useState, useMemo } from 'react'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
-import { motion, AnimatePresence } from 'motion/react'
-import { SelfVerification } from '@/components/self-verification'
+import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { motion, AnimatePresence } from "motion/react";
+import { SelfVerification } from "@/components/self-verification";
 import {
   Shield,
   ArrowLeft,
@@ -12,26 +12,26 @@ import {
   Vote,
   Check,
   ShieldCheck,
-} from 'lucide-react'
+} from "lucide-react";
 
-type Phase = 'verify' | 'success'
+type Phase = "verify" | "success";
 
-const ease = [0.16, 1, 0.3, 1] as const
+const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function VerifyPage() {
-  const router = useRouter()
-  const [phase, setPhase] = useState<Phase>('verify')
-  const sessionId = useMemo(() => crypto.randomUUID(), [])
+  const router = useRouter();
+  const [phase, setPhase] = useState<Phase>("verify");
+  const sessionId = useMemo(() => crypto.randomUUID(), []);
 
   const handleVerified = () => {
-    setPhase('success')
-    setTimeout(() => router.push('/vote'), 1400)
-  }
+    setPhase("success");
+    setTimeout(() => router.push("/vote"), 1400);
+  };
 
   const steps = [
-    { key: 'verify', label: 'Verify', icon: Fingerprint },
-    { key: 'vote', label: 'Vote', icon: Vote },
-  ]
+    { key: "verify", label: "Verify", icon: Fingerprint },
+    { key: "vote", label: "Vote", icon: Vote },
+  ];
 
   return (
     <main className="min-h-dvh bg-stone-50 text-zinc-900 relative overflow-hidden">
@@ -40,8 +40,8 @@ export default function VerifyPage() {
         className="fixed inset-0 pointer-events-none opacity-[0.03]"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 1px 1px, rgb(113,113,122) 0.5px, transparent 0)',
-          backgroundSize: '32px 32px',
+            "radial-gradient(circle at 1px 1px, rgb(113,113,122) 0.5px, transparent 0)",
+          backgroundSize: "32px 32px",
         }}
       />
 
@@ -49,10 +49,10 @@ export default function VerifyPage() {
       <motion.div
         className="fixed top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-violet-400/[0.06] blur-[100px] pointer-events-none"
         animate={{
-          opacity: phase === 'success' ? [0.06, 0.12, 0.06] : 0.06,
-          scale: phase === 'success' ? [1, 1.1, 1] : 1,
+          opacity: phase === "success" ? [0.06, 0.12, 0.06] : 0.06,
+          scale: phase === "success" ? [1, 1.1, 1] : 1,
         }}
-        transition={{ duration: 2, ease: 'easeInOut' }}
+        transition={{ duration: 2, ease: "easeInOut" }}
       />
 
       {/* Header */}
@@ -67,7 +67,9 @@ export default function VerifyPage() {
             <div className="size-7 rounded-lg bg-violet-600 flex items-center justify-center shadow-sm shadow-violet-600/20">
               <Shield className="size-3.5 text-white" />
             </div>
-            <span className="text-sm font-semibold text-zinc-900 tracking-tight">ZK Vote</span>
+            <span className="text-sm font-semibold text-zinc-900 tracking-tight">
+              ZK Vote
+            </span>
           </Link>
 
           <Link
@@ -83,7 +85,6 @@ export default function VerifyPage() {
       {/* Content */}
       <div className="relative z-10 pt-28 pb-20 px-6">
         <div className="max-w-lg mx-auto">
-
           {/* Stepper */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -92,9 +93,9 @@ export default function VerifyPage() {
             className="flex items-center justify-center gap-0 mb-14"
           >
             {steps.map((step, i) => {
-              const isActive = step.key === 'verify'
-              const isComplete = phase === 'success' && step.key === 'verify'
-              const StepIcon = step.icon
+              const isActive = step.key === "verify";
+              const isComplete = phase === "success" && step.key === "verify";
+              const StepIcon = step.icon;
               return (
                 <div key={step.key} className="flex items-center">
                   {i > 0 && (
@@ -102,8 +103,8 @@ export default function VerifyPage() {
                       className="w-12 sm:w-20 h-px mx-2"
                       animate={{
                         backgroundColor: isComplete
-                          ? 'rgb(52, 211, 153)'
-                          : 'rgb(228, 228, 231)',
+                          ? "rgb(52, 211, 153)"
+                          : "rgb(228, 228, 231)",
                       }}
                       transition={{ duration: 0.6, ease }}
                     />
@@ -113,18 +114,19 @@ export default function VerifyPage() {
                       className="size-10 rounded-full flex items-center justify-center"
                       animate={{
                         backgroundColor: isComplete
-                          ? 'rgb(16, 185, 129)'
+                          ? "rgb(16, 185, 129)"
                           : isActive
-                            ? 'rgb(124, 58, 237)'
-                            : 'rgb(244, 244, 245)',
-                        color: isComplete || isActive
-                          ? 'rgb(255, 255, 255)'
-                          : 'rgb(161, 161, 170)',
+                            ? "rgb(124, 58, 237)"
+                            : "rgb(244, 244, 245)",
+                        color:
+                          isComplete || isActive
+                            ? "rgb(255, 255, 255)"
+                            : "rgb(161, 161, 170)",
                         boxShadow: isComplete
-                          ? '0 1px 3px rgba(16, 185, 129, 0.25)'
+                          ? "0 1px 3px rgba(16, 185, 129, 0.25)"
                           : isActive
-                            ? '0 1px 3px rgba(124, 58, 237, 0.25)'
-                            : '0 0 0 1px rgb(228, 228, 231)',
+                            ? "0 1px 3px rgba(124, 58, 237, 0.25)"
+                            : "0 0 0 1px rgb(228, 228, 231)",
                       }}
                       transition={{ duration: 0.5, ease }}
                     >
@@ -156,10 +158,10 @@ export default function VerifyPage() {
                       className="text-xs font-medium tracking-wide"
                       animate={{
                         color: isComplete
-                          ? 'rgb(5, 150, 105)'
+                          ? "rgb(5, 150, 105)"
                           : isActive
-                            ? 'rgb(124, 58, 237)'
-                            : 'rgb(161, 161, 170)',
+                            ? "rgb(124, 58, 237)"
+                            : "rgb(161, 161, 170)",
                       }}
                       transition={{ duration: 0.5, ease }}
                     >
@@ -167,19 +169,19 @@ export default function VerifyPage() {
                     </motion.span>
                   </div>
                 </div>
-              )
+              );
             })}
           </motion.div>
 
           {/* Phase content */}
           <AnimatePresence mode="wait">
             {/* === VERIFY PHASE === */}
-            {phase === 'verify' && (
+            {phase === "verify" && (
               <motion.div
                 key="verify"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0, y: -20, filter: 'blur(4px)' }}
+                exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
                 transition={{ duration: 0.4, ease }}
               >
                 {/* Heading */}
@@ -190,8 +192,10 @@ export default function VerifyPage() {
                     transition={{ duration: 0.6, delay: 0.15, ease }}
                     className="text-3xl md:text-4xl font-semibold text-zinc-900 mb-3 text-balance"
                   >
-                    Prove you&apos;re{' '}
-                    <span className="font-serif italic text-violet-600">human</span>
+                    Prove you&apos;re{" "}
+                    <span className="font-serif italic text-violet-600">
+                      human
+                    </span>
                   </motion.h1>
                   <motion.p
                     initial={{ opacity: 0, y: 12 }}
@@ -199,8 +203,8 @@ export default function VerifyPage() {
                     transition={{ duration: 0.6, delay: 0.25, ease }}
                     className="text-[15px] text-zinc-500 leading-relaxed max-w-sm mx-auto text-pretty"
                   >
-                    Scan the QR code with the Self app. Your Aadhaar identity is verified
-                    using zero-knowledge proofs -- nothing is stored.
+                    Scan the QR code with the Self app. Your Aadhaar identity is
+                    verified using zero-knowledge proofs -- nothing is stored.
                   </motion.p>
                 </div>
 
@@ -210,13 +214,16 @@ export default function VerifyPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.35, ease }}
                 >
-                  <SelfVerification sessionId={sessionId} onVerified={handleVerified} />
+                  <SelfVerification
+                    sessionId={sessionId}
+                    onVerified={handleVerified}
+                  />
                 </motion.div>
               </motion.div>
             )}
 
             {/* === SUCCESS PHASE === */}
-            {phase === 'success' && (
+            {phase === "success" && (
               <motion.div
                 key="success"
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -233,7 +240,7 @@ export default function VerifyPage() {
                     transition={{
                       duration: 1.2,
                       repeat: Infinity,
-                      ease: 'easeOut',
+                      ease: "easeOut",
                     }}
                   />
                   {/* Inner pulse ring */}
@@ -245,7 +252,7 @@ export default function VerifyPage() {
                       duration: 1.2,
                       delay: 0.15,
                       repeat: Infinity,
-                      ease: 'easeOut',
+                      ease: "easeOut",
                     }}
                   />
                   {/* Icon */}
@@ -255,7 +262,10 @@ export default function VerifyPage() {
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ duration: 0.6, ease, delay: 0.1 }}
                   >
-                    <ShieldCheck className="size-9 text-white" strokeWidth={1.8} />
+                    <ShieldCheck
+                      className="size-9 text-white"
+                      strokeWidth={1.8}
+                    />
                   </motion.div>
                 </div>
 
@@ -284,9 +294,9 @@ export default function VerifyPage() {
                   <div className="h-1 w-32 rounded-full bg-zinc-100 overflow-hidden">
                     <motion.div
                       className="h-full bg-emerald-500 rounded-full"
-                      initial={{ width: '0%' }}
-                      animate={{ width: '100%' }}
-                      transition={{ duration: 1.2, ease: 'easeInOut' }}
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 1.2, ease: "easeInOut" }}
                     />
                   </div>
                 </motion.div>
@@ -296,5 +306,5 @@ export default function VerifyPage() {
         </div>
       </div>
     </main>
-  )
+  );
 }
