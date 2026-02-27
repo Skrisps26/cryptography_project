@@ -12,7 +12,7 @@ import {
   Vote,
   Check,
   ShieldCheck,
-} from "lucide-react";
+} from "lucide-reac";
 
 type Phase = "verify" | "success";
 
